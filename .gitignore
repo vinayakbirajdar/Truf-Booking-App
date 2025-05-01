@@ -1,0 +1,50 @@
+node_modules
+# Node modules
+node_modules/
+
+# macOS system files
+.DS_Store
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Metro bundler cache
+metro-cache/
+
+# React Native packager
+*.packager.js
+
+# iOS
+ios/Pods/
+ios/build/
+ios/DerivedData/
+ios/Pods/Local Podspecs/
+
+# Android
+android/.gradle/
+android/app/build/
+android/build/
+
+# Xcode
+*.xcworkspace
+*.xcodeproj/*
+!*.xcodeproj/project.pbxproj
+
+# IDE files
+.vscode/
+*.idea/
+*.sw?
+*.sublime*
+
+# Misc
+.env
+*.keystore
+*.jks
+
+# iOS local podspec files
+ios/Pods/**/*.podspec.json
+
+# Android native build cache
+android/cxx/
