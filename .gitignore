@@ -1,150 +1,119 @@
-# node_modules
-# # Node modules
-# node_modules/
-
-# # macOS system files
-# .DS_Store
-
-# # Logs
-# npm-debug.log*
-# yarn-debug.log*
-# yarn-error.log*
-
-# # Metro bundler cache
-# metro-cache/
-
-# # React Native packager
-# *.packager.js
-
-# # iOS
-# ios/Pods/
-# ios/build/
-# ios/DerivedData/
-# ios/Pods/Local Podspecs/
-
-# # Android
-# android/.gradle/
-# android/app/build/
-# android/build/
-
-# # Xcode
-# *.xcworkspace
-# *.xcodeproj/*
-# !*.xcodeproj/project.pbxproj
-
-# # IDE files
-# .vscode/
-# *.idea/
-# *.sw?
-# *.sublime*
-
-# # Misc
-# .env
-# *.keystore
-# *.jks
-
-# # iOS local podspec files
-# ios/Pods/**/*.podspec.json
-
-# # Android native build cache
-# android/cxx/
-
-
-# Node dependencies
+# ====================================================
+# Node.js
+# ====================================================
 node_modules/
-npm-debug.log
-yarn-debug.log
-yarn-error.log
 package-lock.json
 yarn.lock
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-# Expo
+# ====================================================
+# Environment Files
+# ====================================================
+.env*
+!.env.example
+
+# ====================================================
+# Metro / React Native
+# ====================================================
 .expo/
-web-build/
-dist/
-
-# Metro
 .metro-health-check*
+*.packager.js
+*.jsbundle
+*.bundle
+*.map
+.hbc
 
-# Local env files
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+# ====================================================
+# Jest
+# ====================================================
+coverage/
+.jest/
 
+# ====================================================
+# Build Outputs
+# ====================================================
+dist/
+web-build/
+
+# ====================================================
 # iOS
-ios/build/
+# ====================================================
 ios/Pods/
+ios/build/
 ios/DerivedData/
 ios/*.xcworkspace
 ios/*.xcuserstate
 ios/*.dSYM.zip
 ios/*.ipa
 ios/Podfile.lock
+ios/Pods/Local Podspecs/
 
+# ====================================================
 # Android
-android/app/build/
-android/build/
+# ====================================================
 android/.gradle/
+android/.cxx/
+android/build/
 android/gradle/
+android/captures/
 android/local.properties
-android/app/release/
+android/app/build/
 android/app/debug/
+android/app/release/
 android/app/src/main/assets/index.android.bundle
 android/app/src/main/res/drawable-*/
 android/app/src/main/res/raw/
 android/*.keystore
 android/*.jks
-android/captures/
-android/cxx/
-android/.cxx/
 
-# Visual Studio Code
-.vscode/
-.history/
-*.code-workspace
-
-# Webstorm/IntelliJ IDEA
-.idea/
-*.iml
-
+# ====================================================
 # macOS
+# ====================================================
 .DS_Store
 *.pem
 
+# ====================================================
 # Windows
+# ====================================================
 Thumbs.db
 Desktop.ini
 
-# Temporary files
+# ====================================================
+# IDEs & Editors
+# ====================================================
+.vscode/
+.history/
+*.code-workspace
+.idea/
+*.iml
+*.sublime*
+*.sw?
 *.swp
 *.swo
 *~
 *.tmp
 *.bak
 
-# Jest
-coverage/
-.jest/
+# ====================================================
+# Xcode
+# ====================================================
+*.xcodeproj/*
+!*.xcodeproj/project.pbxproj
+*.xcworkspace
 
-# Bundle artifacts
-*.jsbundle
-*.bundle
-*.map
-
-# Hermes
-.hbc
-
-# CocoaPods
-ios/Podfile.lock
-ios/Pods/Local Podspecs/
-
-# Apple
-.AppleDouble
-.LSOverride
-
-# Ruby (used by CocoaPods)
+# ====================================================
+# Ruby (for CocoaPods)
+# ====================================================
 vendor/
 .ruby-version
 .ruby-gemset
+
+# ====================================================
+# Misc Apple
+# ====================================================
+.AppleDouble
+.LSOverride
+android/.cxx/
+android/app/.cxx/

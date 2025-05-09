@@ -1,16 +1,10 @@
 import React from "react";
 import { Text, View, SafeAreaView } from "react-native";
+import TabNavigator from "./src/routes/bottom_nav";
+import MainRoute from "./src/routes/main_routes";
 
 const App = () => {
-  return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <View style={{ alignItems: 'center', justifyContent: 'center', flex: 1 }}>
-        <Text style={{ color: 'black' }}>
-          Hello World!
-        </Text>
-      </View>
-    </SafeAreaView>
-  );
+  return <MainRoute />
 };
 
 export default App;
