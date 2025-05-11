@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "768754959579",
+    "project_id": "truf-booking-ca7dd",
+    "storage_bucket": "truf-booking-ca7dd.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:768754959579:android:7a5408fb7767f239a5f8fe",
+        "android_client_info": {
+          "package_name": "com.trufbooking"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCtkKGTk5tqMvfSxn2sTUwmzLOAF3ydfcg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
