@@ -1,10 +1,13 @@
 import React from "react";
-import { Text, View, SafeAreaView } from "react-native";
-import TabNavigator from "./src/routes/bottom_nav";
 import MainRoute from "./src/routes/main_routes";
+import { AuthContext, AuthProvider } from "./src/context/AuthContext";
 
 const App = () => {
-  return <MainRoute />
+  return (
+    <AuthProvider>
+      <MainRoute />
+    </AuthProvider>
+  )
 };
 
 export default App;

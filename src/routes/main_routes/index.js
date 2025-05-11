@@ -1,13 +1,27 @@
 import { NavigationContainer } from "@react-navigation/native";
-import React from "react";
+import React, { useContext } from "react";
 import TabNavigator from "../bottom_nav";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import Login from "../../screens/login_screen";
+import Signup from "../../screens/signup_screen";
+import SplashScreen from "../../screens/splash_screen";
 
 const MainRoute = () => {
+    const Stack = createNativeStackNavigator();
     return (
-
         <NavigationContainer>
-            <TabNavigator />
+            <Stack.Navigator
+                screenOptions={{ headerShown: false }}
+            >
+                <Stack.Screen name="Splash" component={SplashScreen} />
+                <Stack.Screen name="Login" component={Login} />
+                <Stack.Screen name="Home" component={TabNavigator} />
+                <Stack.Screen name="SignUp" component={Signup} />
+            </Stack.Navigator>
         </NavigationContainer>
+
+
+
     );
 }
 
