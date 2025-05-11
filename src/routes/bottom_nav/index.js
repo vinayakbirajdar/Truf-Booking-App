@@ -16,6 +16,7 @@ const TabNavigator = () => {
             <Tab.Screen name="Home" component={HomeScreen} />
             <Tab.Screen name="Available" component={AvailableScreen} />
             <Tab.Screen name="History" component={HistoryScreen} />
+
         </Tab.Navigator>
     )
 }

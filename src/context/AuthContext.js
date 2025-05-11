@@ -1,6 +1,5 @@
 import React, { createContext, useEffect, useState } from 'react';
 import { getUser, saveUser, clearUser } from '../utils/storage';
-import { signOut } from '@react-native-firebase/auth';
 import { auth } from '../utils/firebase/firebaseConfig';
 
 export const AuthContext = createContext();
@@ -14,7 +13,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     const logout = async () => {
-        await signOut(auth);
+        // await auth.signOut();
         await clearUser();
         setUser(null);
     };
