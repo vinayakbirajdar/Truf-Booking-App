@@ -8,16 +8,20 @@ import { AuthContext } from '../../context/AuthContext';
 const SplashScreen = () => {
     const navigation = useNavigation();
     const { user } = useContext(AuthContext);
-
     useEffect(() => {
         const timer = setTimeout(() => {
-            if (user !== null) {
-                navigation.replace('Home');
+            if (user) {
+                navigation.reset({
+                    index: 0,
+                    routes: [{ name: 'Home' }]
+                });
             } else {
-                navigation.replace('Login');
+                navigation.reset({
+                    index: 0,
+                    routes: [{ name: 'Login' }]
+                });
             }
-        }, 2000);
-
+        }, 1500);
         return () => clearTimeout(timer);
     }, [user]);
 
