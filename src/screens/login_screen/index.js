@@ -1,32 +1,53 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { Alert, Image, StyleSheet, Text, TextInput, ToastAndroid, TouchableOpacity, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { ActivityIndicator, Alert, Image, StyleSheet, Text, TextInput, ToastAndroid, TouchableOpacity, View } from "react-native";
 import { auth } from "../../utils/firebase/firebaseConfig";
 import { useNavigation } from "@react-navigation/native";
 import { AuthContext } from "../../context/AuthContext";
+import CustomAlert from "../../component/custom_alert";
 
 const Login = () => {
     const { control, handleSubmit, formState: { errors } } = useForm()
     const navigation = useNavigation()
     const { login } = useContext(AuthContext)
+    const [loading, setLoading] = useState(false)
+    const [errorMessage, setErrorMessage] = useState("")
+    const [showError, setShowError] = useState(false)
+
+    const getReadableError = (firebaseError) => {
+        if (firebaseError.includes("auth/invalid-email")) {
+            return "Please enter a valid email address.";
+        } else if (firebaseError.includes("auth/user-not-found")) {
+            return "No account found with this email.";
+        } else if (firebaseError.includes("auth/invalid-credential")) {
+            return "Incorrect password. Please try again.";
+        } else if (firebaseError.includes("auth/network-request-failed")) {
+            return "Network error. Please check your internet connection.";
+        } else {
+            return "Something went wrong. Please try again.";
+        }
+    };
 
     const onSubmit = async (data) => {
         const { email, password } = data
         console.log("Data", data);
+        setLoading(true)
         try {
             const userCredential = await auth().signInWithEmailAndPassword(email, password);
             const user = userCredential.user;
             console.log("User logged in:", user);
             login({ uid: user.uid, email: user.email })
             ToastAndroid.show("login Sucessfully", ToastAndroid.LONG)
+            setLoading(false)
             if (user) {
                 navigation.navigate('Home')
             }
 
         } catch (error) {
             console.error("Login failed:", error.message);
-            Alert.alert("Login Error", error.message);
+            setErrorMessage(getReadableError(error.message))
+            setShowError(true)
+            setLoading(false);
         }
     }
 
@@ -68,7 +89,11 @@ const Login = () => {
                 />
 
                 <TouchableOpacity style={styles.submitBtn} onPress={handleSubmit(onSubmit)}>
-                    <Text style={styles.btnText}>Submit</Text>
+                    {loading ? (
+                        <ActivityIndicator size={20} color={'white'} />
+                    ) : (
+                        <Text style={styles.btnText}>Submit</Text>
+                    )}
                 </TouchableOpacity>
                 {/* <Text>OR</Text> */}
                 <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 5 }}>
@@ -98,7 +123,13 @@ const Login = () => {
                     </TouchableOpacity>
                 </View>
             </View>
-
+            <CustomAlert
+                visible={showError}
+                message={errorMessage}
+                onClose={() => setShowError(false)}
+                imageSource={require('../../../assets/error.png')}
+                title="Error"
+            />
         </View>
 
     )

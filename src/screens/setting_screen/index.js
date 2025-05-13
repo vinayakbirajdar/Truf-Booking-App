@@ -2,10 +2,10 @@ import React, { useContext, useState } from "react";
 import { Button, FlatList, StyleSheet, Text, TouchableOpacity, View, ScrollView } from "react-native";
 import { AuthContext } from "../../context/AuthContext";
 import { SafeAreaView } from "react-native-safe-area-context";
-import CustomAlert from "../../component/custom_alert";
 import { useNavigation } from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/EvilIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import CustomMessage from "../../component/custom_message";
 
 const generalSetting = [
     { id: '1', name: 'Language', iconLib: "FontAwesome", icon: "language" },
@@ -110,7 +110,7 @@ const Setting = () => {
                         />
                     </View>
 
-                    <CustomAlert
+                    <CustomMessage
                         visible={showAlert}
                         title="Logout"
                         message="Are you sure you want to logout"

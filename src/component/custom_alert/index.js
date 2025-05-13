@@ -1,13 +1,13 @@
 import React from 'react';
 import { Modal, View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 
-const CustomAlert = ({ visible, title, message, onConfirm, onCancel, confirmText = 'OK', cancelText = 'Cancel', confirmColor = '#4CAF50', cancelColor = '#F44336', imageSource }) => {
+const CustomAlert = ({ visible, title, message, onClose, imageSource }) => {
     return (
         <Modal
             transparent
             animationType="fade"
             visible={visible}
-            onRequestClose={onCancel}
+            onRequestClose={onClose}
         >
             <View style={styles.overlay}>
                 <View style={styles.container}>
@@ -17,17 +17,9 @@ const CustomAlert = ({ visible, title, message, onConfirm, onCancel, confirmText
                     {title && <Text style={styles.title}>{title}</Text>}
                     <Text style={styles.message}>{message}</Text>
                     <View style={styles.buttons}>
-                        {onCancel && (
-                            <View style={styles.buttonContainer}>
-                                <TouchableOpacity onPress={onCancel}>
-                                    <Text style={{ color: confirmColor, fontSize: 18 }}>{cancelText}</Text>
-                                </TouchableOpacity>
-                            </View>
-                        )}
-                        <View style={styles.divider} />
                         <View style={styles.buttonContainer}>
-                            <TouchableOpacity onPress={onConfirm}>
-                                <Text style={{ color: cancelColor, fontSize: 18 }}>{confirmText}</Text>
+                            <TouchableOpacity onPress={onClose}>
+                                <Text style={{ color: 'blue', fontSize: 20 }}>Ok</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -54,16 +46,15 @@ const styles = StyleSheet.create({
     image: {
         width: 40,
         height: 40,
-        marginBottom: 10
     },
     title: {
-        fontSize: 18,
+        fontSize: 20,
         fontWeight: 'bold',
         marginBottom: 10,
         textAlign: 'center'
     },
     message: {
-        fontSize: 16,
+        fontSize: 18,
         marginBottom: 20,
         textAlign: 'center'
     },
@@ -71,23 +62,12 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         width: '100%',
         borderTopWidth: 1,
-        paddingVertical: 5,
+        paddingVertical: 10,
         borderColor: 'grey'
-    },
-    confirmButton: {
-        backgroundColor: '#4CAF50'
-    },
-    cancelButton: {
-        backgroundColor: '#F44336'
     },
     buttonContainer: {
         flex: 1,
-        alignItems: 'center',
-        // paddingVertical: 10
-    },
-    divider: {
-        width: 1,
-        backgroundColor: 'grey'
+        alignItems: 'center'
     },
 });
 
