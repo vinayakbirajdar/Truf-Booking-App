@@ -53,6 +53,10 @@ const Login = () => {
 
     return (
         <View style={styles.container}>
+            <Image
+                source={require('../../../assets/app_logo.png')}
+                style={{ height: 150, width: 150, }}
+            />
             <View style={styles.loginContainer}>
                 <Text style={styles.title}>Welcome to Truf-Booking</Text>
                 <Text style={styles.sub_title}>Please enter your datails to sign in.</Text>
@@ -143,7 +147,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     loginContainer: {
-        // backgroundColor: 'white',
         padding: 20,
         width: '96%',
         borderRadius: 10,
