@@ -83,7 +83,6 @@ const styles = StyleSheet.create({
     buttonContainer: {
         flex: 1,
         alignItems: 'center',
-        // paddingVertical: 10
     },
     divider: {
         width: 1,

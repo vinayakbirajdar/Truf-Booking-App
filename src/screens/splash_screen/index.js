@@ -31,7 +31,7 @@ const SplashScreen = () => {
 
             <Video
                 source={require('../../../assets/logo_gif/logo_animated.mp4')}
-                style={{ height: 450, width: 450, }}
+                style={{ height: 450, width: 450, backgroundColor: 'white' }}
                 resizeMode="contain"
                 repeat
                 muted
