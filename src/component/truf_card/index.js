@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import appStyles from "../../common/styles/app_style";
 import Octicons from 'react-native-vector-icons/Octicons';
+import { useNavigation } from "@react-navigation/native";
 
 const TrufCards = ({ name, image, location, price, feedback }) => {
     const [favourite, setFavourite] = useState(false)
+    const navigation = useNavigation()
     return (
         <View style={styles.container}>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
@@ -32,7 +34,7 @@ const TrufCards = ({ name, image, location, price, feedback }) => {
             </View>
             <Text style={{ ...appStyles.FONT_REGULAR, fontSize: 14 }}>Price starting from ₹ {price}/hr</Text>
 
-            <TouchableOpacity style={{ ...appStyles.submitBtn }}>
+            <TouchableOpacity style={{ ...appStyles.submitBtn }} >
                 <Text style={{ ...appStyles.submitText }}>Book</Text>
             </TouchableOpacity>
         </View>

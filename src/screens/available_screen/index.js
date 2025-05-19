@@ -1,70 +1,56 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FlatList, ScrollView, StatusBar, Text, TouchableOpacity, View } from "react-native";
 import CustomSearchBar from "../../component/serach_bar";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import TrufCards from "../../component/truf_card";
 import appStyles from "../../common/styles/app_style";
+import firestore from '@react-native-firebase/firestore';
+import TrufCardSkeleton from "../../component/shimmer_effects/truf_skeleton";
+import FilterModal from "../../component/filter_modal";
 
 const sportOptions = [
     { id: '1', name: 'All Sports' },
     { id: '2', name: 'Football' },
-    { id: '3', name: 'Circket' },
+    { id: '3', name: 'Cricket' },
     { id: '4', name: 'Voleyball' },
     { id: '5', name: 'Hockey' },
     { id: '6', name: 'Tennis' },
     { id: '7', name: 'Kabaddi' },
 ];
-
-const trufList = [
-    {
-        id: '1',
-        name: 'VB Trufs',
-        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7aVmnK3sROW9rUU8JhHqhKFjgiUYScMSV6w&s',
-        price: '500',
-        location: 'Pune',
-        feedback: '4.5',
-        sports: ['All Sports', 'Hockey', 'Tennis']
-    },
-    {
-        id: '2',
-        name: 'Green Field',
-        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQV7bHtbXiYFs2kirnkQyOqx1pDhL5ne7UetA&s',
-        price: '600',
-        location: 'Mumbai',
-        feedback: '1.7',
-        sports: ['Football', 'Circket', 'Kabaddi']
-    }, {
-        id: '3',
-        name: 'Green Field',
-        image: 'https://static.vecteezy.com/system/resources/thumbnails/017/046/997/small/cheering-banner-football-vector.jpg',
-        price: '600',
-        location: 'Mumbai',
-        feedback: '4.7',
-        sports: ['Voleyball', 'Tennis']
-    }, {
-        id: '4',
-        name: 'Green Field',
-        image: 'https://i.pinimg.com/736x/2a/90/06/2a9006a312e04aeb7d65c4a590304650.jpg',
-        price: '600',
-        location: 'Mumbai',
-        feedback: '2.5',
-        sports: ['Football', 'Voleyball', 'Hockey', 'Kabaddi']
-    }
-];
 const AvailableScreen = () => {
     const [selectedSports, setSelectedSports] = useState('All Sports')
+    const [trufs, setTrufs] = useState([])
+    const [loader, setLoader] = useState(false)
+    const [filterShow, setFilterShow] = useState(false)
 
-    const filteredTrufs = selectedSports === 'All Sports' ? trufList : trufList.filter(truf =>
-        truf.sports.includes(selectedSports)
-    )
+    useEffect(() => {
+        setLoader(true)
+        const trufLists = async () => {
+            try {
+                const snapshot = await firestore().collection('trufs').get();
+                const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                setTrufs(data);
+                console.log("response data ", data);
+                setLoader(false)
+            } catch (error) {
+                console.error('Error fetching trufs:', error);
+                setLoader(false)
+            }
+        }
+        trufLists()
+    }, []);
+
+    const filteredTrufs = selectedSports === "All Sports" ? trufs : trufs.filter(truf =>
+        truf.sports && truf.sports.includes(selectedSports)
+    );
     return (
         <SafeAreaView style={{ flex: 1, marginHorizontal: 14, marginTop: 5 }}>
             <CustomSearchBar
-                placeholder="Search Trufs by name"
-                on
-            />
-            <ScrollView >
+                placeholder="Search Trufs by name" />
+            <ScrollView
+                showsVerticalScrollIndicator={false}
+            >
                 <FlatList
                     data={sportOptions}
                     horizontal
@@ -88,21 +74,26 @@ const AvailableScreen = () => {
                 />
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 10 }}>
                     <Text style={{ ...appStyles.lable }}>All Trufs</Text>
-                    <TouchableOpacity >
+                    <TouchableOpacity onPress={() => setFilterShow(true)}>
                         <Icon name='filter' size={30} />
                     </TouchableOpacity>
                 </View>
+                {loader ? <TrufCardSkeleton /> : (
 
-                {filteredTrufs.map((truf) => (
-                    <TrufCards
-                        key={truf.id}
-                        name={truf.name}
-                        image={truf.image}
-                        price={truf.price}
-                        location={truf.location}
-                        feedback={truf.feedback}
-                    />
-                ))}
+                    filteredTrufs.map((truf) => (
+                        <TrufCards
+                            key={truf.id}
+                            name={truf.name}
+                            image={truf.truf_image}
+                            price={truf.price}
+                            location={truf.location}
+                            feedback={truf.feedback}
+                        // navigation={"TrufInfo"}
+                        />
+                    ))
+                )}
+                <FilterModal visible={filterShow} onClose={() => setFilterShow(false)}
+                    onPress={() => navigation.navigate('TrufInfo', { ...props })} />
             </ScrollView>
         </SafeAreaView>
     )

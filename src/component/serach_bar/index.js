@@ -52,9 +52,9 @@ const styles = StyleSheet.create({
     searchWrapper: {
         flexDirection: 'row',
         alignItems: 'center',
-        borderWidth: 1,
-        borderColor: '#ccc',
-        borderRadius: 8,
+        borderWidth: 0.5,
+        borderColor: 'lightgrey',
+        borderRadius: 10,
         paddingHorizontal: 8,
         backgroundColor: 'white'
 
