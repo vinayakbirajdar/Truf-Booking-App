@@ -8,6 +8,7 @@ import appStyles from "../../common/styles/app_style";
 import firestore from '@react-native-firebase/firestore';
 import TrufCardSkeleton from "../../component/shimmer_effects/truf_skeleton";
 import FilterModal from "../../component/filter_modal";
+import { useNavigation } from "@react-navigation/native";
 
 const sportOptions = [
     { id: '1', name: 'All Sports' },
@@ -23,6 +24,7 @@ const AvailableScreen = () => {
     const [trufs, setTrufs] = useState([])
     const [loader, setLoader] = useState(false)
     const [filterShow, setFilterShow] = useState(false)
+    const navigation = useNavigation()
 
     useEffect(() => {
         setLoader(true)
@@ -88,12 +90,12 @@ const AvailableScreen = () => {
                             price={truf.price}
                             location={truf.location}
                             feedback={truf.feedback}
-                        // navigation={"TrufInfo"}
+                            {...truf}
+                            navigation={navigation}
                         />
                     ))
                 )}
-                <FilterModal visible={filterShow} onClose={() => setFilterShow(false)}
-                    onPress={() => navigation.navigate('TrufInfo', { ...props })} />
+                <FilterModal visible={filterShow} onClose={() => setFilterShow(false)} />
             </ScrollView>
         </SafeAreaView>
     )
